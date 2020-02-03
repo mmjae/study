@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mybatis 공통 환경 설정 -->
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<typeAliases>
+		<!-- 타입 알리어스 줄경우 -->
+		<!-- <typeAlias alias="member" type="com.board.icia.dto.Member"/> -->
+		<package name="com.board.icia.dto"/>
+	</typeAliases>
+	
+	
+	
+</configuration>

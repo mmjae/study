@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 회원 관련 SQL -->
+<!-- 
+1.paramerterType에 1개의 Type만 올수있다. Type 여러개인경우 생략할 것.
+2.paramerterType DTO인경우  #{필드명}
+3.paramerterType 변수인 경우  #{변수명}
+4.paramerterType Map<key,value>인경우  #{key}
+5.resultType도 1개만 올 수 있다 1개 이상의 레코드를 검색하는경우 DTO 타입만 명시
+6.#{}:문자열인경우 '' 숫자인경우는 안넣어준다.
+7.${}:문자열 변환 없이 그대로 입력된다.(EX ,컬럼명을 전달 할 경우)
+8.paramerterType 을 생략 가능하지만 권장하지 않음
+ -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> <!-- XML에서 사용할 수 있는 규격 -->
+
+<mapper namespace="com.board.icia.dao.IMemberDao">
+		<select id="getLoginResult" parameterType="member"
+		resultType="boolean"> <!-- id가 인터페이스에 메소드이름 -->
+		SELECT COUNT(*) FROM MEMBER WHERE ID=#{id} AND PASSWORD=#{password}
+		
+		<!-- 검색하고 싶은 컬럼은 ${} --> <!-- #{} 은 문자면 "" 숫자면 빼준다 -->
+		</select>
+		<insert id="memberJoin" parameterType="member"> 
+		INSERT INTO M VALUES(#{id},#{password},#{name},#{birth},#{address},#{phone_number},default)
+		</insert>
+		<select id="getSecurityPw" parameterType="String" resultType="String">
+		SELECT PASSWORD FROM M WHERE ID=#{id}
+		</select>
+		<select id="getMemberInfo" parameterType="String" resultType="member">
+		SELECT * FROM MEMBERINFO WHERE ID=#{id}
+		</select>
+		<select id="hashMapTest" parameterType="Map"
+			resultType="boolean">
+			SELECT COUNT(*) FROM MEMBER WHERE ID=#{id} AND PASSWORD=#{pw}
+		</select>
+		<select id="hashMapTest2" parameterType="String"
+			resultType="Map">
+			SELECT * FROM MEMBERINFO WHERE ID=#{id}
+		</select>
+</mapper>
+

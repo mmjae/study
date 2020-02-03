@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd"> <!-- XML에서 사용할 수 있는 규격 -->
+
+<mapper namespace="com.board.icia.dao.IBoardDao"> 
+		<select id="getBoardList" parameterType="Integer"
+		resultType="board">
+		<![CDATA[
+		SELECT * FROM BOARD_LIST_1 WHERE RONUM>=#{pageNumber}*10-9 
+		AND RONUM<=#{pageNumber}*10
+		]]>
+		</select>
+
+</mapper>
