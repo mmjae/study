@@ -7,17 +7,65 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+html, body {
+	height: 100%;
+	margin: 0
+}
+
+#articleView_layer {
+	display: none;
+	position: fixed;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%
+}
+
+#articleView_layer.open {
+	display: block;
+	color: red
+}
+
+#articleView_layer #bg_layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: .5;
+	filter: alpha(opacity = 50);
+	z-index: 100
+}
+
+#contents_layer {
+	position: absolute;
+	top: 40%;
+	left: 40%;
+	width: 400px;
+	height: 400px;
+	margin: -150px 0 0 -194px;
+	padding: 28px 28px 0 28px;
+	border: 2px solid #555;
+	background: #fff;
+	font-size: 12px;
+	z-index: 200;
+	color: #767676;
+	line-height: normal;
+	white-space: normal;
+	overflow: scroll
+}
+</style>
 </head>
 <body>
-	<h1>boardList.jsp</h1>
 	
 	<h2>게시판 리스트</h2>
 	<c:if test="${!empty id}">
 		<div align="right">
 			<form name="logoutFrm" id="logoutFrm" method="post" action="logout">
-			
 				<a href="javascript:logout()">로그아웃</a>
-			
 			</form>
 		 </div>
 		
@@ -63,7 +111,14 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
+	<!-- 페이징 출력 -->
+	<div align="center">
+		${paging}
+	</div>
+	<div id="articleView_layer">
+		<div id="bg_layer"></div>
+		<div id="contents_layer"></div>
+	</div>
 	<script type="text/javascript">
 	function logout() {
 		$('#logoutFrm').submit();
@@ -71,20 +126,34 @@
 	</script>
 	<script type="text/javascript">
 	function articleView(num) {
+		$("#articleView_layer").addClass("open");
 		$.ajax({
 			type:'get',
-			url:'contents'
+			url:'contents',
 			data:{bNum:num},
-			dataType:'html',
+			dataType:'html', //boardContentsAjax.jsp
 			success: function (data) {
-				alert(data);
+				$("#contents_layer").html(data);
 			},
 			error: function (error) {
-				alert(error);
+				console.log(error);
 			}
 		});//ajax end
 	}//fct end
-	
+	//모달 박스 해제
+	var $layerWindow=$('#articleView_layer');
+	$layerWindow.find('#bg_layer').on('mousedown',function(event){
+		console.log(event);
+		$layerWindow.removeClass('open');
+	});//on end
+	$(document).keydown(function (event) {
+		if(event.keyCode!=27){
+			return;
+		}else if($layerWindow.hasClass('open')) {
+			$layerWindow.removeClass('open');
+		}
+	});//keydown End
 	</script>
+	
 </body>
 </html>

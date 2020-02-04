@@ -28,7 +28,7 @@
 			value="classpath:com/board/icia/dao/mybatis-conf.xml" />
 
 		<property name="mapperLocations"
-			value="classpath:com/**/mapper/*.xml" />
+			value="classpath:com/board/icia/dao/mapper/*.xml" />
 			</bean>
 			
 			<mybatis-spring:scan base-package="com.board.icia.dao"/>

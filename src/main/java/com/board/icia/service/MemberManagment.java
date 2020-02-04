@@ -25,7 +25,7 @@ public class MemberManagment {
 	private void hashMapTest(String id, String pwEncode) {
 			Map<String,String> hMap= new HashMap<>();
 			hMap.put("id", id);
-			hMap.put("pw", pwEncode);
+			hMap.put("password", pwEncode);
 			boolean result=mDao.hashMapTest(hMap);
 			System.out.println("result="+result); //로그인 성공 true, 실패 false
 			hMap=mDao.hashMapTest2(id);

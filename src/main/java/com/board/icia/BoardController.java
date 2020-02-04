@@ -1,6 +1,5 @@
 package com.board.icia;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,14 +18,14 @@ public class BoardController {
 	ModelAndView mav;
 	
 	@RequestMapping(value = "/boardlist") // method를 지우면 get이든 post를 같이 받음
-	public ModelAndView boardList(Integer pageNum, HttpServletRequest req) { //파라메터가 안넘어올수도 있기떄문에 Interger 초기값은 null
-		mav = bm.getBoardList(pageNum,req);
+	public ModelAndView boardList(Integer pageNum) { //파라메터가 안넘어올수도 있기떄문에 Interger 초기값은 null
+		mav = bm.getBoardList(pageNum);
 		return mav;
 	}
 
 	@RequestMapping(value = "/contents", method = RequestMethod.GET) // method를 지우면 get이든 post를 같이 받음
-	public ModelAndView contents(Integer bNum, HttpServletRequest req) { //파라메터가 안넘어올수도 있기떄문에 Interger 초기값은 null
-		mav = bm.getContents(bNum,req);
+	public ModelAndView contents(Integer bNum) { //파라메터가 안넘어올수도 있기떄문에 Interger 초기값은 null
+		mav = bm.getContents(bNum);
 		return mav;
 	}
 	

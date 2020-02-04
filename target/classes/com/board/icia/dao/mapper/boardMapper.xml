@@ -7,9 +7,19 @@
 		<select id="getBoardList" parameterType="Integer"
 		resultType="board">
 		<![CDATA[
-		SELECT * FROM BOARD_LIST_1 WHERE RONUM>=#{pageNumber}*10-9 
-		AND RONUM<=#{pageNumber}*10
+		SELECT * FROM(SELECT /*+INDEX_ASC(BOARD PK_BOARD_NUMBER)*/ ROWNUM AS RN, B.* FROM B WHERE ROWNUM<=#{pNum}*10)
+		WHERE RN >= #{pNum}*10-9
 		]]>
+		 <!-- /*+INDEX_ASC(B PK_BOARD_NUMBER)*/ 힌트 -->
+		 <!-- B.*  B테이블에 전부를 검색하시오-->
 		</select>
-
+		<select id="getContents" parameterType="Integer"
+		resultType="board">
+		SELECT * FROM BOARD_LIST_1 WHERE BOARD_NUMBER=#{bNum}
+		</select>
+		<select id="getReplyList" parameterType="Integer"
+		resultType="reply">
+		SELECT * FROM REPLY_LIST WHERE BOARD_NUMBER=#{bNum}
+		
+		</select>
 </mapper>

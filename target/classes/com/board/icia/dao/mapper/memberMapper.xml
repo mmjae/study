@@ -31,7 +31,7 @@
 		</select>
 		<select id="hashMapTest" parameterType="Map"
 			resultType="boolean">
-			SELECT COUNT(*) FROM MEMBER WHERE ID=#{id} AND PASSWORD=#{pw}
+			SELECT COUNT(*) FROM MEMBER WHERE ID=#{id} AND PASSWORD=#{password}
 		</select>
 		<select id="hashMapTest2" parameterType="String"
 			resultType="Map">
