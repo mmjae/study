@@ -7,7 +7,7 @@
 		<select id="getBoardList" parameterType="Integer"
 		resultType="board">
 		<![CDATA[
-		SELECT * FROM(SELECT /*+INDEX_ASC(BOARD PK_BOARD_NUMBER)*/ ROWNUM AS RN, B.* FROM B WHERE ROWNUM<=#{pNum}*10)
+		SELECT * FROM(SELECT /*+INDEX_ASC(B PK_BOARD_NUMBER)*/ ROWNUM AS RN, B.* FROM B WHERE ROWNUM<=#{pNum}*10)
 		WHERE RN >= #{pNum}*10-9
 		]]>
 		 <!-- /*+INDEX_ASC(B PK_BOARD_NUMBER)*/ 힌트 -->
@@ -22,4 +22,8 @@
 		SELECT * FROM REPLY_LIST WHERE BOARD_NUMBER=#{bNum}
 		
 		</select>
+		<insert id="replyInsert" parameterType="reply">
+				INSERT INTO R	
+				VALUES(REPLY_NUMBER_SEQ.NEXTVAL,#{board_number},#{reply_contents},#{reply_id},DEFAULT)
+		</insert>
 </mapper>

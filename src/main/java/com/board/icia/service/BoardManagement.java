@@ -1,6 +1,8 @@
 package com.board.icia.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import com.board.icia.dao.IBoardDao;
 import com.board.icia.dto.Board;
 import com.board.icia.dto.Reply;
 import com.board.icia.userClass.Paging;
+import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -62,5 +65,29 @@ public class BoardManagement {
 		view = "boardContentsAjax"; // jsp
 		mav.setViewName(view);
 		return mav;
+	}
+
+	public String replyInsert(Reply r) {
+		String json=null;
+		if (bDao.replyInsert(r)) {
+			List<Reply> rList=bDao.getReplyList(r.getBoard_number());
+			json=new Gson().toJson(rList);
+		}else {
+			json=null;
+		}
+		return json;
+	}
+
+	public Map<String, List<Reply>> replyInsertJackSon(Reply r) {
+		Map<String, List<Reply>> rMap=null;
+		if(bDao.replyInsert(r)) {
+			List<Reply> rList=bDao.getReplyList(r.getBoard_number());
+			rMap=new HashMap<String, List<Reply>>();
+			rMap.put("rList", rList);
+			System.out.println(rMap);
+		}else {
+			rMap=null;
+		}
+		return rMap;
 	}
 }

@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.serializeObject.js"></script>
 <style>
 html, body {
 	height: 100%;
@@ -105,6 +106,7 @@ html, body {
 			<tr height="25">
 				<td align="center">${board.board_number}</td>
 				<td align="center"><a href="#" onclick="articleView(${board.board_number})">${board.board_title}</a></td>
+				<!-- #은 위로 #; 은 현재 위치 고수 --> 
 				<td align="center">${board.board_id}</td>
 				<td align="center">${board.board_date}</td>
 				<td align="center">${board.b_views}</td>
