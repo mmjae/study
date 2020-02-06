@@ -9,7 +9,10 @@
 		<!-- <typeAlias alias="member" type="com.board.icia.dto.Member"/> -->
 		<package name="com.board.icia.dto"/>
 	</typeAliases>
+	<typeHandlers>
+	<!-- 타입핸들러인경우 순서 잘 지켜서 -->
 	
+	</typeHandlers>
 	
 	
 </configuration>

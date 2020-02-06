@@ -2,10 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+		
 		<!-- 로그를 출력하기 해서 DriverSpy이용한 jdbc설정 : Connection 이 1개만 존재 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -16,7 +19,6 @@
 		<property name="username" value="icia" />
 		<property name="password" value="1111" />
 	</bean>
-
 
 	<!-- sqlSessionFactory:: mybatis -->
 	<bean id="sqlSessionFactory"
@@ -32,4 +34,12 @@
 			</bean>
 			
 			<mybatis-spring:scan base-package="com.board.icia.dao"/>
+	<bean id="transactionManager"
+	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+
+	
+	
 </beans>

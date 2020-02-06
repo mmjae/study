@@ -56,7 +56,7 @@ public class HomeController {
 		HttpSession session=req.getSession();
 		session.invalidate();
 		String view=null;
-		view="home";
+		view="redirect:home";
 		mav.setViewName(view);
 		return mav;
 	}

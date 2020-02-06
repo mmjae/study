@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h3>BOARD * REPLY CONTENTS</h3>
-	<a href="boardDelete?bNum=${board.board_number}">삭제</a>
+	<a href="boarddelete?bNum=${board.board_number}">삭제</a>
 	<table>
 		<tr>
 			<td width="100" bgcolor="pink" align="center">글번호</td>

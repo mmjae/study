@@ -156,6 +156,20 @@ html, body {
 		}
 	});//keydown End
 	</script>
+	<script type="text/javascript">
+	$(function () {
+		var result='${bNum}';
+		console.log(result);
+		if(result===''){
+			return
+		}
+		if(parseInt(result)>0){
+			alert('${bNum}'+'글을 삭제하였습니다.');
+			
+		}
+	})
+	
+	</script>
 	
 </body>
 </html>

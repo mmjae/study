@@ -26,4 +26,14 @@
 				INSERT INTO R	
 				VALUES(REPLY_NUMBER_SEQ.NEXTVAL,#{board_number},#{reply_contents},#{reply_id},DEFAULT)
 		</insert>
+		
+		 <delete id="replyDelete" parameterType="Integer">
+			DELETE FROM R WHERE BOARD_NUMBER=#{bNum}
+		</delete>
+		<delete id="boardDelete" parameterType="Integer">
+			DELETE FROM B WHERE BOARD_NUMBER=#{bNum}
+		</delete> 
+		
+		
+		
 </mapper>

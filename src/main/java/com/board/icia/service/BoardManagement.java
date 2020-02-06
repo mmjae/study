@@ -6,11 +6,15 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.icia.dao.IBoardDao;
 import com.board.icia.dto.Board;
 import com.board.icia.dto.Reply;
+import com.board.icia.userClass.DbException;
 import com.board.icia.userClass.Paging;
 import com.google.gson.Gson;
 
@@ -33,7 +37,12 @@ public class BoardManagement {
 			System.out.println(bList.size());
 			mav.addObject("bList", bList);
 			mav.addObject("paging", getPaging(pageNumber));
+			ModelMap map=mav.getModelMap();
 			view = "boardList"; // jsp
+			List<Board> list=(List<Board>)(map.getAttribute("bList"));
+			for(int i=0;i<list.size();i++) {
+				System.out.println(list.get(i).getBoard_number());
+			}
 		} else {
 			mav.addObject("blist", "내용이 없습니다.");
 			view = "home";
@@ -89,5 +98,24 @@ public class BoardManagement {
 			rMap=null;
 		}
 		return rMap;
+	}
+	@Transactional
+	public ModelAndView boardDelete(Integer bNum, RedirectAttributes attr) throws DbException {
+		mav=new ModelAndView();
+		System.out.println("삭제 글 번호"+bNum);
+		boolean r=bDao.replyDelete(bNum);
+		boolean a=bDao.boardDelete(bNum);
+		if(a==false) { //원글을 삭제한 경우 예외 발생시켜서 롤백
+			throw new DbException();
+		}
+		if(r && a) {
+			System.out.println("삭제 트렌잭션 성공");
+			attr.addFlashAttribute("bNum",bNum);
+		}else {
+			System.out.println("삭제 트렌잭션 실패 ");
+		}
+		mav.setViewName("redirect:boardlist");
+		
+		return mav;
 	}
 }
