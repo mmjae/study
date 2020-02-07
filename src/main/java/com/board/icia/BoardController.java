@@ -38,7 +38,12 @@ public class BoardController {
 		mav = bm.getContents(bNum);
 		return mav;
 	}
-	
+	@GetMapping(value = "/writefrm") // method를 지우면 get이든 post를 같이 받음
+	public ModelAndView writeFrm() { //파라메터가 안넘어올수도 있기떄문에 Interger 초기값은 null
+		mav = new ModelAndView();
+		mav.setViewName("writeFrm");
+		return mav;
+	}
 	
 	
 }

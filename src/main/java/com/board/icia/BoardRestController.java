@@ -10,13 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.board.icia.dto.Board;
 import com.board.icia.dto.Reply;
 import com.board.icia.service.BoardManagement;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -67,5 +71,19 @@ public class BoardRestController {
 		Map<String,List<Reply>> rMap=bm.replyInsertJackSon(r);
 		return rMap; //jackson역활 :Map을 -->json으로 변환함
 		//ex:{'rList', rList} -->{"rList",[{},{},{}]}
+	}
+	
+	//public String boardwrite(@RequestParam("board_title") String title,@RequestParam("board_contents") String con
+	//		,@RequestParam("files") List<MultipartFile> file) { //json을 커맨드 객체로 저장할경우
+	@PostMapping(value = "/boardwrite", produces = "application/json;charset=UTF-8")
+		public String boardwrite(Board board,List<MultipartFile> files) {
+		System.out.println("타이틀은"+board.getBoard_title());
+		System.out.println("내용은"+board.getBoard_contents());
+		System.out.println("파일은"+files.size());
+		
+		for(int i= 0 ; i <files.size();i++) {
+			System.out.println(files.get(i));
+		}
+		return "ss"; //제이슨 형태가 아님으로 에러
 	}
 }

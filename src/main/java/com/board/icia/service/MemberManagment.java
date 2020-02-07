@@ -42,7 +42,7 @@ public class MemberManagment {
 		String pwEncode = mDao.getSecurityPw(mb.getId());
 		System.out.println("DB 패스워스" + pwEncode);
 		//hashMap 테스트
-		hashMapTest(mb.getId(),pwEncode);
+		//hashMapTest(mb.getId(),pwEncode);
 		
 		if (pwEncode != null) {
 			if (pwEncoder.matches(mb.getPassword(), pwEncode)) { // mb.getpw와 pwEncode와 비교해줌

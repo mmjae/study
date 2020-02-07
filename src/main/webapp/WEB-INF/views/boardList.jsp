@@ -113,6 +113,11 @@ html, body {
 			</tr>
 		</c:forEach>
 	</table>
+	<!-- 글쓰기 -->
+	<form action="writefrm">
+		<button>글쓰기</button>
+	</form>
+	
 	<!-- 페이징 출력 -->
 	<div align="center">
 		${paging}

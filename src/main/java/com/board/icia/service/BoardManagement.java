@@ -37,12 +37,12 @@ public class BoardManagement {
 			System.out.println(bList.size());
 			mav.addObject("bList", bList);
 			mav.addObject("paging", getPaging(pageNumber));
-			ModelMap map=mav.getModelMap();
+			//ModelMap map=mav.getModelMap();
 			view = "boardList"; // jsp
-			List<Board> list=(List<Board>)(map.getAttribute("bList"));
-			for(int i=0;i<list.size();i++) {
-				System.out.println(list.get(i).getBoard_number());
-			}
+			//List<Board> list=(List<Board>)(map.getAttribute("bList"));
+			//for(int i=0;i<list.size();i++) {
+			//	System.out.println(list.get(i).getBoard_number());
+			//}
 		} else {
 			mav.addObject("blist", "내용이 없습니다.");
 			view = "home";
