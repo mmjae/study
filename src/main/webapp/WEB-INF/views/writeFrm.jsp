@@ -114,6 +114,7 @@ textarea {
 			dataType:'json',
 			success:function(data){
 				console.log(data);
+				location.href="./boardlist"; //resulful방식
 			},
 			error: function(error) {
 				console.log(error);

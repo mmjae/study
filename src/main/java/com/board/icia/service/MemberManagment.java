@@ -72,11 +72,6 @@ public class MemberManagment {
 	}
 
 
-
-
-
-
-
 	public ModelAndView memberJoin(Member mb) {
 		mav = new ModelAndView();
 		String view = null;

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.board.icia.dto.Board;
@@ -75,15 +76,33 @@ public class BoardRestController {
 	
 	//public String boardwrite(@RequestParam("board_title") String title,@RequestParam("board_contents") String con
 	//		,@RequestParam("files") List<MultipartFile> file) { //json을 커맨드 객체로 저장할경우
+//	@PostMapping(value = "/boardwrite", produces = "application/json;charset=UTF-8")
+//		public String boardwrite(Board board,List<MultipartFile> files) {
+//		System.out.println("타이틀은"+board.getBoard_title());
+//		System.out.println("내용은"+board.getBoard_contents());
+//		System.out.println("파일은"+files.get(0).getOriginalFilename());
+//		System.out.println("파일은"+files.get(1).getOriginalFilename());
+//		
+//		for(int i= 0 ; i <files.size();i++) {
+//			System.out.println(files.get(i));
+//		}
+//		return new Gson().toJson(files); //제이슨 형태가 아님으로 에러
+//	}
 	@PostMapping(value = "/boardwrite", produces = "application/json;charset=UTF-8")
-		public String boardwrite(Board board,List<MultipartFile> files) {
-		System.out.println("타이틀은"+board.getBoard_title());
-		System.out.println("내용은"+board.getBoard_contents());
-		System.out.println("파일은"+files.size());
-		
-		for(int i= 0 ; i <files.size();i++) {
-			System.out.println(files.get(i));
-		}
-		return "ss"; //제이슨 형태가 아님으로 에러
+	public String boardwrite(MultipartHttpServletRequest multi) {
+	System.out.println("타이틀은"+multi.getParameter("board_title"));
+	System.out.println("내용은"+multi.getParameter("board_contents"));
+	System.out.println("파일체크"+multi.getParameter("fileCheck"));
+	List<MultipartFile> files=multi.getFiles("files");
+	
+	System.out.println("파일은"+files.get(0).getOriginalFilename());
+	
+	for(int i= 0 ; i <files.size();i++) {
+		System.out.println(files.get(i));
 	}
+	return new Gson().toJson(files); //제이슨 형태가 아님으로 에러
+}
+	
+	
+	
 }

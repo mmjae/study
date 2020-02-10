@@ -6,10 +6,10 @@
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
-		<!-- 로그를 출력하기 해서 DriverSpy이용한 jdbc설정 : Connection 이 1개만 존재 -->
+
+	<!-- 로그를 출력하기 해서 DriverSpy이용한 jdbc설정 : Connection 이 1개만 존재 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName"
@@ -31,17 +31,15 @@
 
 		<property name="mapperLocations"
 			value="classpath:com/board/icia/dao/mapper/*.xml" />
-			</bean>
-			
-			<mybatis-spring:scan base-package="com.board.icia.dao"/>
-	<bean id="transactionManager"
-	class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-	<property name="dataSource" ref="dataSource"></property>
 	</bean>
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
 
-
-
-
-	
-	
+	<mybatis-spring:scan
+		base-package="com.board.icia.dao" />
+		
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
 </beans>

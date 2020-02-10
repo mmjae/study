@@ -3,37 +3,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> <!-- XML에서 사용할 수 있는 규격 -->
 
-<mapper namespace="com.board.icia.dao.IBoardDao"> 
-		<select id="getBoardList" parameterType="Integer"
+<mapper namespace="com.board.icia.dao.IBoardDao">
+	<select id="getBoardList" parameterType="Integer"
 		resultType="board">
 		<![CDATA[
-		SELECT * FROM(SELECT /*+INDEX_ASC(B PK_BOARD_NUMBER)*/ ROWNUM AS RN, B.* FROM B WHERE ROWNUM<=#{pNum}*10)
+		SELECT * FROM(SELECT /*+INDEX_DESC(B PK_BOARD_NUMBER)*/ ROWNUM AS RN, B.* FROM B WHERE ROWNUM<=#{pNum}*10)
 		WHERE RN >= #{pNum}*10-9
 		]]>
-		 <!-- /*+INDEX_ASC(B PK_BOARD_NUMBER)*/ 힌트 -->
-		 <!-- B.*  B테이블에 전부를 검색하시오-->
-		</select>
-		<select id="getContents" parameterType="Integer"
+		<!-- /*+INDEX_ASC(B PK_BOARD_NUMBER)*/ 힌트 -->
+		<!-- B.* B테이블에 전부를 검색하시오 -->
+	</select>
+
+	<select id="getContents" parameterType="Integer"
 		resultType="board">
 		SELECT * FROM BOARD_LIST_1 WHERE BOARD_NUMBER=#{bNum}
-		</select>
-		<select id="getReplyList" parameterType="Integer"
+	</select>
+
+	<select id="getReplyList" parameterType="Integer"
 		resultType="reply">
 		SELECT * FROM REPLY_LIST WHERE BOARD_NUMBER=#{bNum}
-		
-		</select>
-		<insert id="replyInsert" parameterType="reply">
-				INSERT INTO R	
-				VALUES(REPLY_NUMBER_SEQ.NEXTVAL,#{board_number},#{reply_contents},#{reply_id},DEFAULT)
-		</insert>
-		
-		 <delete id="replyDelete" parameterType="Integer">
-			DELETE FROM R WHERE BOARD_NUMBER=#{bNum}
-		</delete>
-		<delete id="boardDelete" parameterType="Integer">
-			DELETE FROM B WHERE BOARD_NUMBER=#{bNum}
-		</delete> 
-		
-		
-		
+	</select>
+
+	<insert id="replyInsert" parameterType="reply">
+		INSERT INTO R
+		VALUES(REPLY_NUMBER_SEQ.NEXTVAL,#{board_number},#{reply_contents},#{reply_id},DEFAULT)
+	</insert>
+
+	<delete id="replyDelete" parameterType="Integer">
+		DELETE FROM R WHERE BOARD_NUMBER=#{bNum}
+	</delete>
+
+	<delete id="boardDelete" parameterType="Integer">
+		DELETE FROM B WHERE BOARD_NUMBER=#{bNum}
+	</delete>
+
+	<insert id="boardWrite" parameterType="board"
+		useGeneratedKeys="true" keyProperty="board_number">
+		INSERT INTO B
+		VALUES(BOARD_NUMBER_SEQ.NEXTVAL,#{board_title},#{board_contents},#{board_id},DEFAULT,DEFAULT)
+		<selectKey keyProperty="board_number" resultType="int"
+			order="AFTER">
+			SELECT BOARD_NUMBER_SEQ.CURRVAL FROM DUAL
+		</selectKey>
+	</insert>
+	<insert id="fileInsert" parameterType="map">
+		INSERT INTO BF
+		VALUES(BF_SEQ.NEXTVAL,#{bNum},#{oriFileName},#{sysFileName})
+	</insert>
 </mapper>
