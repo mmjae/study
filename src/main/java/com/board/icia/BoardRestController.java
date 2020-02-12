@@ -67,11 +67,13 @@ public class BoardRestController {
 	//jackson 활용
 	@RequestMapping(value = "/replyinsert" , method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	//public @ResponseBody String replyInsert(@RequestBody Reply r) { //json을 커맨드 객체로 저장할경우
+	//@ResponseBody ResponseEntity<?> //바디값과 헤더에 상태값 적용가능 
 	public Map<String,List<Reply>> replyInsert(Reply r,HttpServletRequest req) { //json을 커맨드 객체로 저장할경우
 		r.setReply_id(req.getSession().getAttribute("id").toString());
 		Map<String,List<Reply>> rMap=bm.replyInsertJackSon(r);
 		return rMap; //jackson역활 :Map을 -->json으로 변환함
 		//ex:{'rList', rList} -->{"rList",[{},{},{}]}
+		//return ReponseEntity.ok(rMap);
 	}
 	
 	//public String boardwrite(@RequestParam("board_title") String title,@RequestParam("board_contents") String con

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
+import com.board.icia.dto.Bfile;
 import com.board.icia.dto.Board;
 import com.board.icia.dto.Reply;
 
@@ -30,12 +31,14 @@ public interface IBoardDao {
 	@Select("SELECT BOARD_NUMBER_SEQ.CURRVAL FROM DUAL")
 	int getCurBoardNum();
 	
-	
 	boolean boardWrite(Board board);
 	
-	
-	
 	boolean fileInsert(Map<String, String> fMap);
+
+	@Select("SELECT * FROM BF WHERE BOARD_FILE_BOARD_NUMBER=#{bNum}")
+	List<Bfile> getbfList(Integer bNum);
+	@Delete("DELETE FROM BF WHERE BOARD_FILE_BOARD_NUMBER=#{bNum}")
+	boolean fileDelete(Integer bNum);
 
 
 }

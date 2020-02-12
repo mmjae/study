@@ -30,6 +30,19 @@
 			<td bgcolor="pink" align="center">내용</td>
 			<td colspan="5" align="center">${board.board_contents}</td>
 		</tr>
+		<tr>
+			<td>첨부파일</td>
+			<td><c:set var="file" value="${bfList}"/>
+				<c:if test="${empty file}">
+					첨부된 파일이 없습니다.
+				</c:if>
+				<c:if test="${!empty file}">
+					<c:forEach var="file" items="${bfList}">
+					<a href="./download?sysfilename=${file.board_file_sys_name}&orifilename=${file.board_file_origin_name}">${file.board_file_origin_name}</a>
+					</c:forEach>
+				</c:if>
+			 </td>
+		</tr>
 	</table>
 	<form name="rFrm" id="rFrm">
 		<table>

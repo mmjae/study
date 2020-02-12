@@ -19,7 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.board.icia.dao.IBoardDao;
+import com.board.icia.dto.Bfile;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class UploadFile {
 	// 파일 업로드 메소드
@@ -111,5 +115,19 @@ public class UploadFile {
 		os.close();
 		is.close();
 	}
+	// 파일 삭제
+			public void delete(List<Bfile> bfList) {
+				String fullPath = "C:/workSpring/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/springMVCBoard/upload/";
+				for(Bfile bf:bfList) {
+					File file = new File(fullPath+bf.getBoard_file_sys_name());
+					if (file.exists()) {
+						System.out.println("파일 삭제");
+						file.delete();
+					} else {
+						log.info("이미 삭제된 파일");
+					}
+					
+				}
 
+			}
 }

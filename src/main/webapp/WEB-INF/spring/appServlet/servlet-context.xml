@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans
-	xmlns="http://www.springframework.org/schema/mvc"
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -31,8 +30,7 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	<annotation-driven>
-	</annotation-driven>
+	
 
 	<context:component-scan
 		base-package="com.board.icia" />
@@ -65,4 +63,11 @@
 		<beans:property name="maxInMemorySize"
 			value="100000000" />
 	</beans:bean>
+				<beans:bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+		</beans:bean>
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+	
 </beans:beans>

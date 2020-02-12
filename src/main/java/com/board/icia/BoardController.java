@@ -4,6 +4,7 @@ package com.board.icia;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,9 @@ public class BoardController {
 	
 	@GetMapping(value = "/boarddelete")
 	public ModelAndView boardDelete(Integer bNum,RedirectAttributes attr) throws DbException { //파라메터가 안넘어올수도 있기떄문에 Interger 초기값은 null
+		
 		mav = bm.boardDelete(bNum,attr);
+		//mav=bm.execute(bNum,attr,1);
 		return mav;
 	}
 	
@@ -57,5 +60,9 @@ public class BoardController {
 		mav= bm.boardWrite(multi);
 		return mav ;
 	}
-	
+	@RequestMapping(value = "/download")
+	public void download(HttpServletRequest req,HttpServletResponse resp) {
+		System.out.println(req.getParameter("sysfilename"));
+		bm.download(req,resp);
+	}
 }

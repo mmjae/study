@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.board.icia.dao.IMemberDao;
 import com.board.icia.dto.Member;
+import com.board.icia.exception.IdCheckException;
 
 @Service // @Component
 public class MemberManagment {
@@ -22,18 +23,18 @@ public class MemberManagment {
 	private ModelAndView mav;
 
 
-	private void hashMapTest(String id, String pwEncode) {
-			Map<String,String> hMap= new HashMap<>();
-			hMap.put("id", id);
-			hMap.put("password", pwEncode);
-			boolean result=mDao.hashMapTest(hMap);
-			System.out.println("result="+result); //로그인 성공 true, 실패 false
-			hMap=mDao.hashMapTest2(id);
-			System.out.println("name="+hMap.get("NAME"));
-			System.out.println("grade="+hMap.get("GRADE_NAME"));
-			
-			
-	}
+//	private void hashMapTest(String id, String pwEncode) {
+//			Map<String,String> hMap= new HashMap<>();
+//			hMap.put("id", id);
+//			hMap.put("password", pwEncode);
+//			boolean result=mDao.hashMapTest(hMap);
+//			System.out.println("result="+result); //로그인 성공 true, 실패 false
+//			hMap=mDao.hashMapTest2(id);
+//			System.out.println("name="+hMap.get("NAME"));
+//			System.out.println("grade="+hMap.get("GRADE_NAME"));
+//			
+//			
+//	}
 	public ModelAndView memberAccess(Member mb, HttpServletRequest req) {
 		mav = new ModelAndView();
 		String view = null;
@@ -90,7 +91,23 @@ public class MemberManagment {
 		mav.setViewName(view);
 		return mav;
 	}
-
+//	public boolean idAvailable(String id) {
+//		Member mb=mDao.getMemberInfo(id);
+//		if(mb==null) {
+//			return true;//아이디를 사용할수 있다.
+//		}else {
+//			return false; //아이디를 사용할수 없다.
+//		}
+//		
+//	}
+	public String idAvailable(String id) {
+		Member mb=mDao.getMemberInfo(id);
+		if(mb==null) {
+			return "사용 가능한 아이디 입니다.";
+		}else {
+			throw new IdCheckException("사용불가 아이디입니다.");
+		}
+	}
 
 
 
