@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.board.icia.dao.IBoardDao;
 import com.board.icia.dto.Bfile;
 import com.board.icia.dto.Board;
+import com.board.icia.dto.Member;
 import com.board.icia.dto.Reply;
 import com.board.icia.exception.PageException;
 import com.board.icia.userClass.DbException;
@@ -193,6 +194,16 @@ public class BoardManagement {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	public ModelAndView myBatisTest(String cName, Integer point) {
+		mav=new ModelAndView();
+		//Map<String,Object> hMap= new HashMap<String, Object>();
+		//hMap.put("cName", cName);
+		
+		List<Member> list=bDao.myBatisTest(cName,point);
+		mav.addObject("list",list);
+		mav.setViewName("test");
+		return mav;
 	}
 	
 //	public ModelAndView execute(Integer bNum, RedirectAttributes attr, int cmd) {

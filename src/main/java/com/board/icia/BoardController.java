@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.board.icia.dto.Board;
+import com.board.icia.dto.Member;
 import com.board.icia.service.BoardManagement;
 import com.board.icia.userClass.DbException;
 
@@ -65,4 +66,10 @@ public class BoardController {
 		System.out.println(req.getParameter("sysfilename"));
 		bm.download(req,resp);
 	}
+	@GetMapping(value = "test")
+	public ModelAndView myBatisTest(String cName,Integer point) {
+		mav=bm.myBatisTest(cName,point);
+		return mav;
+	}
+	
 }

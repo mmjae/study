@@ -64,7 +64,7 @@ html, body {
 <body>
 
 	<h2>게시판 리스트</h2>
-	<c:if test="${!empty id}">
+	<c:if test="${!empty mb.id}">
 		<div align="right">
 			<form name="logoutFrm" id="logoutFrm" method="post" action="logout">
 				<a href="javascript:logout()">로그아웃</a>
@@ -91,6 +91,7 @@ html, body {
 			<td>${mb.grade_name}</td>
 		</tr>
 	</table>
+	"${mb}"
 	<table>
 		<tr bgcolor="skyblue">
 			<th width="100">번호</th>
@@ -122,6 +123,13 @@ html, body {
 		<div id="bg_layer"></div>
 		<div id="contents_layer"></div>
 	</div>
+	
+	<form action="test">
+		컬럼명:<input type="text" name="cName"><br/>
+		검색:<input type="text" name="point"/>
+		<button>컬럼 검색</button>
+	</form>
+	
 	<script type="text/javascript">
 	function logout() {
 		$('#logoutFrm').submit();

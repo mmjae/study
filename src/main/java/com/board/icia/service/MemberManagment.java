@@ -56,10 +56,14 @@ public class MemberManagment {
 				// 로그인 성공 후 회원정보를 화면에 출력하기 위해
 				mb = mDao.getMemberInfo(mb.getId());
 				session.setAttribute("mb", mb);
-				//mav.addObject("mb", mb); //리퀘스트 영역에 모델객체를 저장
+				//System.out.println("이름"+mb.getName());
+				//System.out.println("등급"+mb.getGrade_name());
+				//mav.addObject("member", mb); //리퀘스트 영역에 모델객체를 저장
 				//view="forward:/boardlist"; //forward:url, post-post, get-get끼리만
 				//view = "boardList";// jsp
+				
 				view="redirect:/boardlist"; //리다이렉포워딩 :url, post,get-->get
+				//view="forward:/boardlist";
 			} else {// 비번오류
 				view = "home";
 				mav.addObject("check", 2);// 로그인 실패

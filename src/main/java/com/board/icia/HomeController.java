@@ -5,8 +5,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.board.icia.dto.Member;
@@ -15,11 +18,11 @@ import com.board.icia.service.MemberManagment;
 /**
  * Handles requests for the application home page.
  */
+
 @Controller
 public class HomeController {
 	
 	//private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
 	
 	@Autowired
 	private MemberManagment mm; //회원관리(BL)
@@ -60,8 +63,14 @@ public class HomeController {
 		mav.setViewName(view);
 		return mav;
 	}
-	
-	
+	@GetMapping(value = "/member/{dept}/{emp}")
+	public String pathVariable(@PathVariable int dept,@PathVariable String emp) {
+		System.out.println("dept="+dept);
+		System.out.println("emp="+emp);
+		
+		return "home";
+		
+	}
 	
 	
 }//Controller End

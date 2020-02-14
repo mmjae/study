@@ -4,6 +4,27 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> <!-- XML에서 사용할 수 있는 규격 -->
 
 <mapper namespace="com.board.icia.dao.IBoardDao">
+
+
+<!-- 	<resultMap type="board" id="board">
+		<result property="bnum" column="B_NUM" />
+		<result property="btitle" column="B_TITLE" />
+		<result property="bcontents" column="B_CONTENTS"
+			javaType="String" jdbcType="NCLOB" />
+		<result property="bid" column="B_ID" />
+		<result property="bdate" column="B_DATE" />
+		<result property="bviews" column="B_VIEWS" />
+		<result property="mname" column="M_NAME" />
+	</resultMap>
+ -->
+	<!-- resultMap 사용예(select에서 사용) -->
+
+	<!-- <select id="getBordList" resultMap="board">
+		SELECT B_NUM, B_TITLE, B_CONTENTS, B_ID FROM BOARD
+	</select> -->
+
+
+
 	<select id="getBoardList" parameterType="Integer"
 		resultType="board">
 		<![CDATA[
@@ -30,11 +51,13 @@
 	</insert>
 
 	<delete id="replyDelete" parameterType="Integer">
-		DELETE FROM R WHERE BOARD_NUMBER=#{bNum}
+		DELETE FROM R WHERE
+		BOARD_NUMBER=#{bNum}
 	</delete>
 
 	<delete id="boardDelete" parameterType="Integer">
-		DELETE FROM B WHERE BOARD_NUMBER=#{bNum}
+		DELETE FROM B WHERE
+		BOARD_NUMBER=#{bNum}
 	</delete>
 
 	<insert id="boardWrite" parameterType="board"
@@ -50,4 +73,12 @@
 		INSERT INTO BF
 		VALUES(BF_SEQ.NEXTVAL,#{bNum},#{oriFileName},#{sysFileName})
 	</insert>
+	<select id="myBatisTest" resultType="Member">
+		SELECT * FROM MEMBERINFO
+		<if test="point!=null">
+			WHERE ${cName}=#{point}
+		</if>
+		<!-- AND ROWNUM=1 -->
+
+	</select>
 </mapper>
